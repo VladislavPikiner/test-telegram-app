@@ -7,7 +7,7 @@ export default function Header() {
       }
   return (
     <>
-    
+    <h1>Hello world 😅</h1>
    <button onClick={onClose}>Закрыть</button>
    <span className="username">{tg.initDataUnsafe?.user?.username}</span>
    </>
