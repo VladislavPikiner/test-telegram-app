@@ -24,7 +24,8 @@ const Form = () => {
 
 
   return (
-    <div className='form'>
+
+    <form className={'form'}>
 
     <h1>Form</h1>
     <Link to={'/'}><Button>ProductList </Button></Link>
@@ -38,7 +39,7 @@ const Form = () => {
     <option value={'physical'}>Small Business</option>
    </select>
 
-</div>
+</form>
   )
 }
 
