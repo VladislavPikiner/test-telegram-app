@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
+import { useTelegram } from '../hooks/useTelegram';
 import './Form.css'
 
 
@@ -9,6 +11,19 @@ const Form = () => {
     const [country, setCountry] = useState('');
     const [city, setCity] = useState('');
     const [subject, setSubject] = useState('physical');
+const {tg} = useTelegram();
+
+useEffect(()=>{
+    tg.MainButton.setParams({text:'Оформить запись'})
+},[])
+
+useEffect(()=>{
+    if(!country || !city){
+        tg.MainButton.hide()
+    }else{
+        tg.MainButton.show()
+    }
+},[country, city])
 
     const onChangeCountry = (e) =>{
         setCountry(e.target.value)
@@ -33,6 +48,7 @@ const Form = () => {
     <h3>Enter your data please:</h3>
 
     <input onChange={onChangeCountry} className='input' type="text" placeholder={'Country'} value={country} />
+
     <input onChange={onChangeCity} className='input' type="text" placeholder={'City'} value={city} />
    <select onChange={onChangeSubject} className='select' value={subject}>
     <option value={'legal'}>Corp</option>
