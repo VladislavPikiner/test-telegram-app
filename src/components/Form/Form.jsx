@@ -18,9 +18,9 @@ const onSendData = useCallback(
         country,
         city,
         subject
-    }
-    
+    }    
 tg.sendData(JSON.stringify(data))
+
   }, [country, city, subject,tg])
 
 useEffect(() => {
@@ -29,7 +29,7 @@ useEffect(() => {
   return () => {
     tg.offEvent('mainButtonClicked', onSendData)
   }
-}, [onSendData,tg])
+}, [])
 
 
 
