@@ -20,7 +20,7 @@ const onSendData = useCallback(() => {
     }    
 tg.sendData(JSON.stringify(data))
 
-  }, [country, city, subject,tg])
+  }, [country, city, subject])
 
 useEffect(() => {
   tg.onEvent('mainButtonClicked', onSendData)
@@ -28,13 +28,13 @@ useEffect(() => {
   return () => {
     tg.offEvent('mainButtonClicked', onSendData)
   }
-}, [tg,onSendData])
+}, [onSendData])
 
 
 
 useEffect(()=>{
     tg.MainButton.setParams({text:'Оформить запись'})
-},[tg])
+},[tg.MainButton])
 
 useEffect(()=>{
     if(!country || !city){
