@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <>
    <div className='header'>
-    <span className='username'>👋 Welcome {user?.username} </span>
+    <span className='username'>👋 Welcome {user?.first_name} </span>
    <Button onClick={onClose}>❌</Button>
    </div>
    </>
