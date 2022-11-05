@@ -34,7 +34,7 @@ useEffect(() => {
 
 useEffect(()=>{
     tg.MainButton.setParams({text:'Оформить запись'})
-},[tg.MainButton])
+},[])
 
 useEffect(()=>{
     if(!country || !city){
