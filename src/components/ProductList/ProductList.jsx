@@ -36,7 +36,7 @@ newItems = addedItems.filter(item=>item.id !== product.id)
 
   return (
     <>
-    <h1>PRODUCTS</h1>
+    <h1 style={{textAlign:'center'}}>PRODUCTS:</h1>
 {products.map(product=>{
   return <ProductItem key={product.id} product={product} onAdd={onAdd} />
 })}
