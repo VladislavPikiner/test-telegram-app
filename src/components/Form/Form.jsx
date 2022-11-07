@@ -20,7 +20,7 @@ const Form = () => {
       }    
       tg.sendData(JSON.stringify(data))
       
-    }, [country, city, subject])
+    }, [country, city, subject,tg])
     
     useEffect(() => {
       tg.onEvent('mainButtonClicked', onSendData)
@@ -28,13 +28,13 @@ const Form = () => {
       return () => {
         tg.offEvent('mainButtonClicked', onSendData)
   }
-}, [onSendData])
+}, [onSendData,tg])
 
 
 
 useEffect(()=>{
  tg.MainButton.setParams({text:'Оформить запись'})
-},[])
+},[tg.MainButton])
 
 useEffect(()=>{
     if(!country || !city){
@@ -42,7 +42,7 @@ useEffect(()=>{
     }else{
         tg.MainButton.show()
     }
-},[country, city])
+},[country, city, tg.MainButton])
 
     const onChangeCountry = (e) =>{
         setCountry(e.target.value)
