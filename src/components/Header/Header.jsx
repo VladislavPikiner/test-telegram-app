@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTelegram } from '../hooks/useTelegram'
+import useTelegram from '../hooks/useTelegram'
 import Button from '../Button/Button';
 import './Header.css'
 export default function Header() {
