@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react'
+import {useState,useEffect, useCallback} from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../Button/Button'
 import useTelegram from '../hooks/useTelegram'
@@ -14,14 +14,15 @@ const getTotalPrice = (items) =>{
 const ProductList = (props) => {
   const [addedItems, setAddedItems] = useState([])
   const [products, setProducts] = useState([])
-  const {tg} = useTelegram()
+  
+  
+  const {tg, queryId} = useTelegram()
+
 useEffect(() => {
   async function getProducts (){
    await fetch('https://fakestoreapi.com/products?limit=5')
     .then(res=>res.json())
     .then(items=>setProducts(items))
-
-
   }
   getProducts()
 }, [])
@@ -49,12 +50,40 @@ newItems = addedItems.filter(item=>item.id !== product.id)
   }
 }
 
+const onSendData = useCallback(() => {
+  const data = {
+    products: addedItems,
+    totalPrice: getTotalPrice(addedItems),
+    queryId,
+  }    
+  fetch('http://localhost:3000',{
+    method:"POST",
+    headers:{
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify(data)
+
+  })
+  
+}, [addedItems,queryId])
+
+useEffect(() => {
+  tg.onEvent('mainButtonClicked', onSendData)
+  
+  return () => {
+    tg.offEvent('mainButtonClicked', onSendData)
+}
+}, [onSendData,tg])
+
   return (
     <>
-    <h1 style={{textAlign:'center'}}>PRODUCTS:</h1>
+    <h1 className='title'>PRODUCTS:</h1>
+    <h3 className='title title-price'>Total: {getTotalPrice(addedItems)}</h3>
+    <section className="list">
 {products.map(product=>{
   return <ProductItem key={product.id} product={product} onAdd={onAdd} />
 })}
+</section>
     <Link to='form'> 
     <Button>Form</Button> 
     </Link>

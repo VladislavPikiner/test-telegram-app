@@ -1,18 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Button from '../Button/Button'
 import './ProductItem.css'
 const ProductItem = ({product, onAdd}) => {
 
     const [isAdded, setIsAdded] = useState(false)
-
     const onAddHandler = ()=>{
         onAdd(product)
-        setIsAdded(true)
+        setIsAdded(!isAdded)
     }
 
 
   return (
-    <div className='list'>
+    <div className='item'>
    
 <div className={"img"}> <img src={product.image} alt="img" /></div>
 <div className={"title" }>{product.title}</div>
@@ -22,7 +21,7 @@ const ProductItem = ({product, onAdd}) => {
 </div>
 <br />
 <Button onClick={onAddHandler}>
-    {isAdded? 'Убрать из корзины' : 'Добавить в корзину'}
+    {isAdded ? '✖️ Убрать из корзины' : '🛒 Добавить в корзину'}
 </Button>
     </div>
     
