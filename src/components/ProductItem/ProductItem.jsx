@@ -3,10 +3,11 @@ import Button from '../Button/Button'
 import './ProductItem.css'
 const ProductItem = ({product, onAdd}) => {
 
-
+    const [isAdded, setIsAdded] = useState(false)
 
     const onAddHandler = ()=>{
         onAdd(product)
+        setIsAdded(true)
     }
 
 
@@ -21,7 +22,7 @@ const ProductItem = ({product, onAdd}) => {
 </div>
 <br />
 <Button onClick={onAddHandler}>
-    Добавить в корзину
+    {isAdded? 'Убрать из корзины' : 'Добавить в корзину'}
 </Button>
     </div>
     
