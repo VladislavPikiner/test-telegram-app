@@ -1,14 +1,20 @@
 import {useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../Button/Button'
+import useTelegram from '../hooks/useTelegram'
 import ProductItem from '../ProductItem/ProductItem'
 import './ProductList.css'
 
+const getTotalPrice = (items) =>{
+ return items.reduce((acc, item)=>{
+  return acc += item.price
+ },0)
+}
+
 const ProductList = (props) => {
   const [addedItems, setAddedItems] = useState([])
-
   const [products, setProducts] = useState([])
-
+  const {tg} = useTelegram()
 useEffect(() => {
   async function getProducts (){
    await fetch('https://fakestoreapi.com/products?limit=5')
@@ -32,6 +38,15 @@ newItems = addedItems.filter(item=>item.id !== product.id)
   }
 
   setAddedItems(newItems)
+
+  if(newItems.length === 0){
+    tg.MainButton.hide()
+  }else{
+    tg.MainButton.show();
+    tg.MainButton.setParams({
+    text:`Оформить заказ на ( ${getTotalPrice(newItems)} )`
+    })
+  }
 }
 
   return (
